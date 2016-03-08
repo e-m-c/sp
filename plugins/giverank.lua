@@ -1,16 +1,3 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
---------------------------------------------------
-
 local function index_function(user_id)
   for k,v in pairs(_config.admin_users) do
     if user_id == v[1] then
@@ -29,18 +16,18 @@ local function admin_by_username(cb_extra, success, result)
     local user_name = result.username
     if is_admin(user_id) then
     	if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
 	    end
 	else
 	    table.insert(_config.admin_users, {tonumber(user_id), user_name})
 		print(user_id..' added to _config table')
 		save_config()
 	    if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, '🆕 '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('chat#id'..chat_id, '#'..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, '🆕 '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    end
 	end
 end
@@ -53,16 +40,16 @@ local function mod_by_username(cb_extra, success, result)
     local hash = 'mod:'..chat_id..':'..user_id
     if redis:get(hash) then
     	if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
 	    end
 	else
 	    redis:set(hash, true)
 	    if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, '🆕 '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, '🆕 '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('channel#id'..chat_id, '#'..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    end
 	end
 end
@@ -83,9 +70,9 @@ local function guest_by_username(cb_extra, success, result)
 		save_config()
 	end
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'ℹ️ @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
+        send_msg('chat#id'..chat_id, '# @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'ℹ️ @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
+        send_msg('channel#id'..chat_id, '# @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
     end
 end
 
@@ -96,18 +83,18 @@ local function set_admin(cb_extra, success, result)
     local chat_type = cb_extra.chat_type
 	if is_admin(tonumber(user_id)) then
     	if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'alreadyAdmin'), ok_cb, false)
 	    end
 	else
     	table.insert(_config.admin_users, {tonumber(user_id), user_name})
 		print(user_id..' added to _config table')
 		save_config()
 	    if cb_extra.chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, '🆕 '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    elseif cb_extra.chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, '🆕 '..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('channel#id'..chat_id, '#'..lang_text(chat_id, 'newAdmin')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    end
 	end
 end
@@ -120,16 +107,16 @@ local function set_mod(cb_extra, success, result)
     local hash = 'mod:'..chat_id..':'..user_id
 	if redis:get(hash) then
     	if chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
+	        send_msg('chat#id'..chat_id, '# '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
 	    elseif chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'alreadyMod'), ok_cb, false)
 	    end
 	else
     	redis:set(hash, true)
 	    if cb_extra.chat_type == 'chat' then
-	        send_msg('chat#id'..chat_id, '🆕 '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('chat#id'..chat_id, '#'..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    elseif cb_extra.chat_type == 'channel' then
-	        send_msg('channel#id'..chat_id, '🆕 '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
+	        send_msg('channel#id'..chat_id, '# '..lang_text(chat_id, 'newMod')..' @'..user_name..' ('..user_id..')', ok_cb, false)
 	    end
 	end
 end
@@ -150,9 +137,9 @@ local function set_guest(cb_extra, success, result)
 		save_config()
 	end
     if cb_extra.chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'ℹ️ @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
+        send_msg('chat#id'..chat_id, '# @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
     elseif cb_extra.chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'ℹ️ @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
+        send_msg('channel#id'..chat_id, '# @'..user_name..' ('..user_id..') '..lang_text(chat_id, 'nowUser'), ok_cb, false)
     end
 end
 
@@ -207,34 +194,34 @@ end
 
 local function mods_channel(extra, success, result)
 	local chat_id = extra.chat_id
-	local text = '🔆 '..lang_text(chat_id, 'modList')..':\n'
+	local text = '# '..lang_text(chat_id, 'modList')..':\n'
 	local compare = text
 	for k,user in ipairs(result) do
 		hash = 'mod:'..chat_id..':'..user.peer_id
 		if redis:get(hash) then
-			text = text..'🔅 '..user.username..'\n'
+			text = text..'#'..user.username..'\n'
 		end
 	end
 	if text == compare then
-		text = text..'🔅 '..lang_text(chat_id, 'modEmpty')
+		text = text..'# '..lang_text(chat_id, '...')
 	end
 	return send_large_msg('channel#id'..chat_id, text, ok_cb, true)
 end
 
 local function mods_chat(extra, success, result)
 	local chat_id = extra.chat_id
-	local text = '🔆 '..lang_text(chat_id, 'modList')..':\n'
+	local text = '# '..lang_text(chat_id, 'modlist')..':\n'
 	local compare = text
 	for k,user in ipairs(result.members) do
 		if user.username then
 			hash = 'mod:'..chat_id..':'..user.peer_id
 			if redis:get(hash) then
-				text = text..'🔅 '..user.username..'\n'
+				text = text..'# '..user.username..'\n'
 			end
 		end
 	end
 	if text == compare then
-		text = text..'🔅 '..lang_text(chat_id, 'modEmpty')
+		text = text..'#'..lang_text(chat_id, '...')
 	end
 	return send_large_msg('chat#id'..chat_id, text, ok_cb, true)
 end
@@ -242,7 +229,7 @@ end
 local function run(msg, matches)
 	user_id = msg.from.id
 	chat_id = msg.to.id
-	if matches[1] == 'rank' then
+	if matches[1] == 'set' then
 		if matches[2] == 'admin' then
 			if permissions(user_id, chat_id, "rank_admin") then
 				if msg.reply_id then
@@ -260,11 +247,11 @@ local function run(msg, matches)
 	            	resolve_username(member, admin_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
 				end
 			else
-				return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+			 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 			end
 		end
 		if matches[2] == 'mod' then
-			if permissions(user_id, chat_id, "rank_mod") then
+			if permissions(user_id, chat_id, "set_mod") then
 				if msg.reply_id then
 					get_message(msg.reply_id, mod_by_reply, false)
 				end
@@ -280,11 +267,11 @@ local function run(msg, matches)
 	            	resolve_username(member, mod_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
 				end
 			else
-				return '🚫 '..lang_text(msg.to.id, 'require_admin')
+			 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 			end
 		end
-		if matches[2] == 'guest' then
-			if permissions(user_id, chat_id, "rank_guest") then
+		if matches[2] == 'member' then
+			if permissions(user_id, chat_id, "set_member") then
 				if msg.reply_id then
 					get_message(msg.reply_id, guest_by_reply, false)
 				end
@@ -300,7 +287,7 @@ local function run(msg, matches)
 	            	resolve_username(member, guest_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
 				end
 			else
-				return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+			 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 			end
 		end
 	elseif matches[1] == 'admins' then
@@ -316,7 +303,7 @@ local function run(msg, matches)
 		  	end
 		  	return text
 		else
-			return '🚫 '..lang_text(msg.to.id, 'require_mod')
+		 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 		end
 	elseif matches[1] == 'members' then
 		if permissions(user_id, chat_id, "members") then
@@ -329,7 +316,7 @@ local function run(msg, matches)
 			    channel_get_users(chan, members_channel, {chat_id=chat_id})
 			end
 		else
-			return '🚫 '..lang_text(msg.to.id, 'require_mod')
+		 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 		end
 	elseif matches[1] == 'mods' then
 		if permissions(user_id, chat_id, "mods") then
@@ -342,7 +329,7 @@ local function run(msg, matches)
 			    channel_get_users(chan, mods_channel, {chat_id=chat_id})
 			end
 		else
-			return '🚫 '..lang_text(msg.to.id, 'require_mod')
+			 return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
 		end
 	end
 end
@@ -351,8 +338,8 @@ end
 
 return {
   patterns = {
-  	"^#(rank) (.*) (.*)$",
-  	"^#(rank) (.*)$",
+  	"^#(set) (.*) (.*)$",
+  	"^#(set) (.*)$",
   	"^#(admins)$",
   	"^#(mods)$",
   	"^#(members)$"
