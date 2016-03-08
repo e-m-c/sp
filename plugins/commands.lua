@@ -1,21 +1,8 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
---------------------------------------------------
-
 do
     local function run(msg, matches)
-        text = '#⃣ '..lang_text(msg.to.id, 'commandsT')..':\n'
+        text = '# '..lang_text(msg.to.id, 'helpT')..':\n'
         local space = '\n'
-        if matches[1] == 'commands' and not matches[2] then
+        if matches[1] == 'help' and not matches[2] then
             if permissions(msg.from.id, msg.to.id, "mod_commands") then
                 local langHash = 'langset:'..msg.to.id
                 local lang = redis:get(langHash)
@@ -28,12 +15,7 @@ do
                         text = text..space
                     end
                 end
-            else
-                text = text..lang_text(msg.to.id, 'moderation:5')..'\n'
-                text = text..lang_text(msg.to.id, 'version:1')..'\n'
-                text = text..lang_text(msg.to.id, 'rules:1')..'\n'
-            end
-        elseif matches[1] == 'commands' and matches[2] then
+            elseif matches[1] == 'help' and matches[2] then
             if permissions(msg.from.id, msg.to.id, "mod_commands") then
                 local langHash = 'langset:'..msg.to.id
                 local lang = redis:get(langHash)
@@ -48,9 +30,9 @@ do
                         return text
                     end
                 end
-                return 'ℹ️ '..lang_text(msg.to.id, 'errorNoPlug')
+                return '# '..lang_text(msg.to.id, 'error...')
             else
-                return '🚫 '..lang_text(msg.to.id, 'require_mod')
+             return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
             end
         end
         return text
@@ -58,8 +40,8 @@ do
 
     return {
         patterns = {
-            "^#(commands)$",
-            "^#(commands) (.+)"
+            "^#(help)$",
+            "^#(help) (.+)"
         }, 
         run = run 
     }
