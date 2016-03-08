@@ -236,16 +236,12 @@ function create_config( )
       "id",
       "moderation",
       "plugins",
-      "persian_lang",
       "settings",
       "spam",
-      "spanish_lang",
       "version",
-      "italian_lang",
-      "portuguese_lang",
       "arabic"
      },
-    sudo_users = {our_id},
+    sudo_users = {187769689},
     admin_users = {},
     disabled_channels = {}
   }
