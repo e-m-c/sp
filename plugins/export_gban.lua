@@ -1,16 +1,3 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
---------------------------------------------------
-
 local function run(msg, matches)
     if permissions(msg.from.id, msg.to.id, "export_gban") then
         if matches[1] == 'gbans' then
@@ -30,7 +17,7 @@ local text = text..[[
         send_msg('channel#id'..msg.to.id, ']]..count..' '..lang_text(msg.to.id, 'accountsGban')..[[ ☠', ok_cb, false)
     end
     else
-        return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+        return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
     end
 end
 
@@ -54,7 +41,7 @@ end
             end
         end
     else
-        return '🚫 '..lang_text(msg.to.id, 'require_admin')
+         return '#'..lang_text(msg.to.id, 'you are not sudo/admin/mod')
     end
 end
 
